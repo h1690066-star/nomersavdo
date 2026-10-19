@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADMIN PANEL — Arzon Nomer Uzb Boshqaruv Tizimi</title>
+    <link rel="icon" type="image/png" href="assets/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --bg-dark: #030712;
+            --bg-panel: #0b1329;
+            --bg-input: #060c1c;
+            --cyan: #00f0ff;
+            --blue: #0066ff;
+            --emerald: #00ff9d;
+            --danger: #ff3b5c;
+            --warning: #ffb800;
+            --text-main: #f1f5f9;
+            --text-muted: #8ca2c0;
+            --border: rgba(0, 240, 255, 0.22);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            background-image: radial-gradient(circle at 15% 15%, rgba(0, 240, 255, 0.08), transparent 40%),
+                              radial-gradient(circle at 85% 85%, rgba(0, 102, 255, 0.08), transparent 40%);
+        }
+
+        /* LOGIN MODAL OVERLAY */
+        .login-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(2, 5, 13, 0.96);
+            backdrop-filter: blur(20px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .login-overlay.hidden { display: none; }
+
+        .login-card {
+            width: 100%;
+            max-width: 420px;
+            background: var(--bg-panel);
+            border: 1.5px solid var(--cyan);
+            border-radius: 24px;
+            padding: 36px 30px;
+            text-align: center;
+            box-shadow: 0 0 50px rgba(0, 240, 255, 0.2);
+        }
+        .login-card img {
+            width: 84px;
+            height: 84px;
+            border-radius: 50%;
+            border: 2px solid var(--cyan);
+            margin-bottom: 14px;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+        }
+        .login-card h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.35rem;
+            margin-bottom: 8px;
+        }
+        .login-card p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin-bottom: 22px;
+        }
+
+        /* LAYOUT */
+        .admin-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(6, 13, 30, 0.88);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            padding: 14px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .header-left img {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1.5px solid var(--cyan);
+        }
+        .header-title {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 800;
+            font-size: 1.05rem;
+        }
+        .header-sub {
+            font-size: 0.78rem;
+            color: var(--cyan);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.86rem;
+            cursor: pointer;
+            border: 1px solid transparent;
+            text-decoration: none;
+            transition: all 0.2s;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .btn i { width: 17px; height: 17px; }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00e1ff, #0055ff);
+            color: #fff;
+            border-color: var(--cyan);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.35);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 28px rgba(0, 240, 255, 0.65); }
+
+        .btn-emerald {
+            background: rgba(0, 255, 157, 0.14);
+            color: var(--emerald);
+            border-color: var(--emerald);
+        }
+        .btn-emerald:hover { background: var(--emerald); color: #020612; }
+
+        .btn-outline {
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-main);
+            border-color: var(--border);
+        }
+        .btn-outline:hover { border-color: var(--cyan); color: var(--cyan); }
+
+        .btn-danger {
+            background: rgba(255, 59, 92, 0.12);
+            color: var(--danger);
+            border-color: rgba(255, 59, 92, 0.4);
+        }
+        .btn-danger:hover { background: var(--danger); color: #fff; }
+
+        .admin-body {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            min-height: calc(100vh - 75px);
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            background: rgba(8, 16, 36, 0.75);
+            border-right: 1px solid var(--border);
+            padding: 24px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .nav-tab {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            padding: 13px 16px;
+            border-radius: 12px;
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s;
+        }
+        .nav-tab i { width: 19px; height: 19px; }
+        .nav-tab:hover { color: #fff; background: rgba(255, 255, 255, 0.03); }
+        .nav-tab.active {
+            background: linear-gradient(90deg, rgba(0, 240, 255, 0.16), rgba(0, 102, 255, 0.08));
+            border-color: var(--cyan);
+            color: var(--cyan);
+            box-shadow: 0 0 18px rgba(0, 240, 255, 0.15);
+        }
+
+        /* CONTENT AREA */
+        .main-panel {
+            padding: 32px;
+            max-width: 1220px;
+            width: 100%;
+        }
+        .tab-pane { display: none; }
+        .tab-pane.active { display: block; animation: fadeIn 0.25s ease; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .pane-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .pane-header h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.4rem;
+            color: #fff;
+        }
+        .pane-header p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 4px;
+        }
+
+        /* FORMS & CARDS */
+        .card-box {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 24px;
+            margin-bottom: 22px;
+        }
+        .card-box h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            color: var(--cyan);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 14px;
+        }
+        .form-group label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #b0c4de;
+        }
+        .form-input, .form-textarea {
+            background: var(--bg-input);
+            border: 1px solid rgba(0, 240, 255, 0.22);
+            color: #fff;
+            padding: 11px 14px;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .form-input:focus, .form-textarea:focus {
+            border-color: var(--cyan);
+            box-shadow: 0 0 12px rgba(0, 240, 255, 0.2);
+        }
+        .form-textarea {
+            min-height: 82px;
+            resize: vertical;
+        }
+
+        /* COUNTRY ITEM EDITOR */
+        .country-editor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+        }
+        .country-edit-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 20px;
+            position: relative;
+        }
+        .country-edit-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .price-inputs-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            background: rgba(2, 6, 18, 0.6);
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 240, 255, 0.12);
+            margin-top: 10px;
+        }
+
+        .category-checks {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 8px 0;
+            font-size: 0.82rem;
+        }
+        .category-checks label {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            background: rgba(255,255,255,0.04);
+            padding: 4px 10px;
+            border-radius: 8px;
+        }
+
+        /* STATUS TOAST */
+        .status-banner {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 999;
+            background: #071936;
+            border: 1.5px solid var(--emerald);
+            color: #fff;
+            padding: 14px 22px;
+            border-radius: 14px;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.75), 0 0 20px rgba(0, 255, 157, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            transform: translateY(150%);
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .status-banner.show { transform: translateY(0); }
+
+        @media (max-width: 900px) {
+            .admin-body { grid-template-columns: 1fr; }
+            .sidebar {
+                flex-direction: row;
+                overflow-x: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+            .nav-tab { white-space: nowrap; width: auto; }
+            .main-panel { padding: 20px 16px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PASSWORD PROTECTION MODAL -->
+    <div id="login-overlay" class="login-overlay">
+        <div class="login-card">
+            <img src="assets/logo.png" alt="Logo">
+            <h2>ADMIN PANEL</h2>
+            <p>Arzon Nomer Uzb boshqaruv tizimiga kirish uchun parolni kiriting</p>
+            <div class="form-group" style="text-align:left;">
+                <label>Admin Parol:</label>
+                <input type="password" id="admin-pass-input" class="form-input" placeholder="Parolni kiriting (masalan: admin777)" onkeydown="if(event.key==='Enter') checkAdminLogin()">
+            </div>
+            <div id="login-error" style="color: var(--danger); font-size: 0.82rem; margin-bottom: 12px; display: none;">
+                ❌ Parol noto'g'ri! Default parol: <b>admin777</b>
+            </div>
+            <button class="btn btn-primary" style="width:100%; justify-content:center; padding: 13px;" onclick="checkAdminLogin()">
+                <i data-lucide="unlock"></i> Tizimga kirish
+            </button>
+            <a href="index.html" style="display:inline-block; margin-top: 16px; color: var(--text-muted); font-size: 0.84rem; text-decoration:none;">← Asosiy saytga qaytish</a>
+        </div>
+    </div>
+
+    <!-- TOP HEADER -->
+    <header class="admin-header">
+        <div class="header-left">
+            <img src="assets/logo.png" alt="Logo">
+            <div>
+                <div class="header-title">ARZON NOMER UZB — <span style="color:var(--cyan)">ADMIN CMS</span></div>
+                <div class="header-sub">Saytdagi barcha narxlar, davlatlar va matnlarni to'liq boshqarish</div>
+            </div>
+        </div>
+
+        <div class="header-actions">
+            <a href="index.html" target="_blank" class="btn btn-outline">
+                <i data-lucide="eye"></i> Saytni ko'rish
+            </a>
+            <button class="btn btn-emerald" onclick="saveAllChanges()">
+                <i data-lucide="check-circle"></i> Saqlash (Brauzerda)
+            </button>
+            <button class="btn btn-primary" onclick="openTab('github')">
+                <i data-lucide="upload-cloud"></i> Netlify / GitHub'ga joylash
+            </button>
+        </div>
+    </header>
+
+    <div class="admin-body">
+        <!-- SIDEBAR NAVIGATION -->
+        <aside class="sidebar">
+            <button class="nav-tab active" data-tab="countries" onclick="openTab('countries')">
+                <i data-lucide="globe"></i> Davlatlar va Narxlar
+            </button>
+            <button class="nav-tab" data-tab="general" onclick="openTab('general')">
+                <i data-lucide="layout"></i> Asosiy Matnlar & Bot
+            </button>
+            <button class="nav-tab" data-tab="tickers" onclick="openTab('tickers')">
+                <i data-lucide="activity"></i> Statistika & Lenta
+            </button>
+            <button class="nav-tab" data-tab="simulator" onclick="openTab('simulator')">
+                <i data-lucide="smartphone"></i> 3D Bot Simulyatori
+            </button>
+            <button class="nav-tab" data-tab="features" onclick="openTab('features')">
+                <i data-lucide="award"></i> Afzalliklar & Qadamlar
+            </button>
+            <button class="nav-tab" data-tab="faqs" onclick="openTab('faqs')">
+                <i data-lucide="help-circle"></i> Savol-Javoblar (FAQ)
+            </button>
+            <button class="nav-tab" data-tab="github" onclick="openTab('github')">
+                <i data-lucide="git-branch"></i> GitHub / Netlify Push
+            </button>
+        </aside>
+
+        <!-- MAIN CONTENT PANELS -->
+        <main class="main-panel">
+
+            <!-- 1. COUNTRIES & PRICES TAB -->
+            <div id="tab-countries" class="tab-pane active">
+                <div class="pane-header">
+                    <div>
+                        <h2>🌍 DAVLATLAR VA NARXLAR VITRINASI</h2>
+                        <p>Har bir davlat uchun Telegram, WhatsApp, Instagram, Google va TikTok narxlarini tahrirlang yoki yangi davlat qo'shing.</p>
+                    </div>
+                    <div style="display:flex; gap:10px;">
+                        <button class="btn btn-emerald" onclick="addNewCountry()">
+                            <i data-lucide="plus"></i> Yangi davlat qo'shish
+                        </button>
+                        <button class="btn btn-primary" onclick="saveAllChanges()">
+                            <i data-lucide="save"></i> O'zgarishlarni saqlash
+                        </button>
+                    </div>
+                </div>
+                <div id="countries-editor-list" class="country-editor-grid"></div>
+            </div>
+
+            <!-- 2. GENERAL & HERO TEXTS TAB -->
+            <div id="tab-general" class="tab-pane">
+                <div class="pane-header">
+                    <div>
+                        <h2>✨ ASOSIY MATNLAR VA BOT MANZILI</h2>
+                        <p>Sayt sarlavhasi, bot havolasi, boshlang'ich narx va chaqiriq (CTA) matnlarini o'zgartiring.</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="saveAllChanges()">
+                        <i data-lucide="save"></i> Saqlash
+                    </button>
+                </div>
+
+                <div class="card-box">
+                    <h3>🤖 Bot va Brend Sozlamalari</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Brend nomi (1-qism):</label>
+                            <input type="text" id="gen-brandTitle" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label>Brend ajratilgan so'zi (Ko'k neon):</label>
+                            <input type="text" id="gen-brandHighlight" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label>Bot Username (@ bilan):</label>
+                            <input type="text" id="gen-botUsername" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label>Bot to'liq ssilkasi (URL):</label>
+                            <input type="text" id="gen-botUrl" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label>Online mijozlar soni (Navbar):</label>
+                            <input type="number" id="gen-onlineCount" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label>3D Karta Boshlang'ich narxi:</label>
+                            <input type="text" id="gen-holoStartPrice" class="form-input">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-box">
+                    <h3>🚀 Bosh sahifa (Hero) Matnlari</h3>
+                    <div class="form-group">
+                        <label>Tepadagi nishon (Badge) matni:</label>
+                        <input type="text" id="gen-heroBadge" class="form-input">
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Katta Sarlavha (1-qator):</label>
+                            <input type="text" id="gen-heroTitleLine1" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label>Yonib turuvchi Glitch Sarlavha (2-qator):</label>
+                            <input type="text" id="gen-heroTitleGlitch" class="form-input">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Hero ostidagi izoh matni:</label>
+                        <textarea id="gen-heroSubtitle" class="form-textarea"></textarea>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Asosiy Tugma matni:</label>
+                            <input type="text" id="gen-heroCtaPrimary" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label>Ikkinchi Tugma matni:</label>
+                            <input type="text" id="gen-heroCtaSecondary" class="form-input">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-box">
+                    <h3>💎 Pastki Banner (CTA) va Footer</h3>
+                    <div class="form-group">
+                        <label>Pastki CTA Sarlavhasi:</label>
+                        <input type="text" id="gen-ctaTitle" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label>Pastki CTA Izohi:</label>
+                        <textarea id="gen-ctaDesc" class="form-textarea"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Footer tavsifi:</label>
+                        <textarea id="gen-footerDesc" class="form-textarea"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Mualliflik huquqi (Copyright):</label>
+                        <input type="text" id="gen-copyright" class="form-input">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. STATS, TICKERS & LIVE TOASTS TAB -->
+            <div id="tab-tickers" class="tab-pane">
+                <div class="pane-header">
+                    <div>
+                        <h2>📊 STATISTIKA, YUGURUVCHI LENTA VA BILDIRISHNOMALAR</h2>
+                        <p>Mijozlarni jalb qiluvchi raqamlar, aksiya lentalari va pastda chiquvchi "Xarid qildi" xabarlarini boshqaring.</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="saveAllChanges()">
+                        <i data-lucide="save"></i> Saqlash
+                    </button>
+                </div>
+
+                <div class="card-box">
+                    <h3>📈 Hero Statistika Bloklari (3 ta)</h3>
+                    <div id="stats-editor-list" class="form-grid"></div>
+                </div>
+
+                <div class="card-box">
+                    <h3>
+                        <span>⚡ Tepadagi Yuguruvchi Lenta (Ticker)</span>
+                        <button class="btn btn-emerald" onclick="addTickerItem()"><i data-lucide="plus"></i> Qo'shish</button>
+                    </h3>
+                    <div id="tickers-editor-list"></div>
+                </div>
+
+                <div class="card-box">
+                    <h3>
+                        <span>🔔 Chap burchakdagi Jonli Xarid Xabarlari (Toasts)</span>
+                        <button class="btn btn-emerald" onclick="addToastItem()"><i data-lucide="plus"></i> Qo'shish</button>
+                    </h3>
+                    <div id="toasts-editor-list"></div>
+                </div>
+            </div>
+
+            <!-- 4. SIMULATOR TAB -->
+            <div id="tab-simulator" class="tab-pane">
+                <div class="pane-header">
+                    <div>
+                        <h2>📱 3D TELEGRAM BOT SIMULYATORI TUGMALARI</h2>
+                        <p>Saytdagi 3D telefon ichida mijoz bosib sinab ko'radigan davlatlar va narxlar.</p>
+                    </div>
+                    <div style="display:flex; gap:10px;">
+                        <button class="btn btn-emerald" onclick="addSimOption()"><i data-lucide="plus"></i> Tugma qo'shish</button>
+                        <button class="btn btn-primary" onclick="saveAllChanges()"><i data-lucide="save"></i> Saqlash</button>
+                    </div>
+                </div>
+                <div id="sim-editor-list" class="form-grid"></div>
+            </div>
+
+            <!-- 5. FEATURES & STEPS TAB -->
+            <div id="tab-features" class="tab-pane">
+                <div class="pane-header">
+                    <div>
+                        <h2>🏆 AFZALLIKLAR (BENTO) VA 3 QADAM</h2>
+                        <p>"Nima uchun aynan biz?" va "Raqam olish qanday ishlaydi?" bo'limlarini tahrirlang.</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="saveAllChanges()"><i data-lucide="save"></i> Saqlash</button>
+                </div>
+
+                <div class="card-box">
+                    <h3>🔥 Kiber-Afzalliklar Kartalari</h3>
+                    <div id="features-editor-list"></div>
+                </div>
+
+                <div class="card-box">
+                    <h3>🧭 Qanday ishlaydi (Qadamlar)</h3>
+                    <div id="steps-editor-list"></div>
+                </div>
+            </div>
+
+            <!-- 6. FAQ TAB -->
+            <div id="tab-faqs" class="tab-pane">
+                <div class="pane-header">
+                    <div>
+                        <h2>❓ KO'P BERILADIGAN SAVOLLAR (FAQ)</h2>
+                        <p>Mijozlar eng ko'p so'raydigan savollar va ularning javoblari.</p>
+                    </div>
+                    <div style="display:flex; gap:10px;">
+                        <button class="btn btn-emerald" onclick="addFaqItem()"><i data-lucide="plus"></i> Savol qo'shish</button>
+                        <button class="btn btn-primary" onclick="saveAllChanges()"><i data-lucide="save"></i> Saqlash</button>
+                    </div>
+                </div>
+                <div id="faqs-editor-list"></div>
+            </div>
+
+            <!-- 7. GITHUB / NETLIFY SYNC TAB -->
+            <div id="tab-github" class="tab-pane">
+                <div class="pane-header">
+                    <div>
+                        <h2>🚀 BARCHA FOYDALANUVCHILAR UCHUN YANGILASH (NETLIFY & GITHUB)</h2>
+                        <p>Tahrirlangan ma'lumotlarni butun dunyo bo'ylab saytda (<code>majestic-banoffee-8496e1.netlify.app</code>) doimiy saqlash.</p>
+                    </div>
+                </div>
+
+                <div class="card-box" style="border-color: var(--cyan);">
+                    <h3>☁️ 1-Usul: Avtomatik GitHub'ga Push qilish (1 ta tugma bilan)</h3>
+                    <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:18px; line-height:1.6;">
+                        Netlify saytingiz <b><code>h1690066-star/nomersavdo</code></b> GitHub repozitoriyasiga ulangan. Agar GitHub Personal Access Token (PAT) kiritsangiz, <b>"Hoziroq GitHub va Netlify'da yangilash"</b> tugmasini bosgan zahotingiz Admin Panel o'zi <code>data.json</code> faylini GitHub'ga joylaydi va Netlify 15 soniyada saytni yangilaydi!
+                    </p>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>GitHub Repo (Egasi/Nomi):</label>
+                            <input type="text" id="gh-repo" class="form-input" value="h1690066-star/nomersavdo">
+                        </div>
+                        <div class="form-group">
+                            <label>GitHub Branch:</label>
+                            <input type="text" id="gh-branch" class="form-input" value="main">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>GitHub Personal Access Token (ixtiyoriy, brauzeringizda saqlanadi):</label>
+                        <input type="password" id="gh-token" class="form-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx">
+                    </div>
+                    <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:10px;">
+                        <button class="btn btn-primary" onclick="pushToGitHubAPI()">
+                            <i data-lucide="upload-cloud"></i> Hoziroq GitHub va Netlify'da yangilash
+                        </button>
+                    </div>
+                    <div id="gh-push-status" style="margin-top:14px; font-size:0.88rem;"></div>
+                </div>
+
+                <div class="card-box">
+                    <h3>📥 2-Usul: <code>data.json</code> faylni yuklab olish yoki nusxalash</h3>
+                    <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:16px; line-height:1.6;">
+                        Token ishlatmasdan ham tayyor <code>data.json</code> faylini kompyuterga yuklab olib, loyiha papkasiga tashlashingiz va Git orqali push qilishingiz mumkin.
+                    </p>
+                    <div style="display:flex; gap:12px; flex-wrap:wrap;">
+                        <button class="btn btn-emerald" onclick="downloadDataJson()">
+                            <i data-lucide="download"></i> data.json faylini yuklab olish
+                        </button>
+                        <button class="btn btn-outline" onclick="copyDataJson()">
+                            <i data-lucide="copy"></i> JSON kodni nusxalash
+                        </button>
+                        <button class="btn btn-danger" onclick="resetToDefaultData()">
+                            <i data-lucide="rotate-ccw"></i> Dastlabki holatga qaytarish
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card-box">
+                    <h3>🔐 Admin Panel Parolini O'zgartirish</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Yangi Admin Parol:</label>
+                            <input type="text" id="new-admin-pass" class="form-input" placeholder="Masalan: arzon2026">
+                        </div>
+                    </div>
+                    <button class="btn btn-outline" onclick="changeAdminPassword()">
+                        <i data-lucide="key"></i> Parolni saqlash
+                    </button>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- STATUS BANNER -->
+    <div id="status-banner" class="status-banner">
+        <i data-lucide="check-circle-2" style="color:var(--emerald)"></i>
+        <span id="status-text">O'zgarishlar saqlandi!</span>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        let CMS_STATE = null;
+
+        // 1. Check Login
+        function checkAdminLogin() {
+            const input = document.getElementById('admin-pass-input').value.trim();
+            const savedPass = localStorage.getItem('arzon_admin_pass') || 'admin777';
+            if (input === savedPass) {
+                sessionStorage.setItem('arzon_admin_logged', 'true');
+                document.getElementById('login-overlay').classList.add('hidden');
+            } else {
+                document.getElementById('login-error').style.display = 'block';
+            }
+        }
+
+        function changeAdminPassword() {
+            const val = document.getElementById('new-admin-pass').value.trim();
+            if (!val) return alert("Yangi parolni yozing!");
+            localStorage.setItem('arzon_admin_pass', val);
+            showStatus("✅ Admin paroli muvaffaqiyatli yangilandi!");
+        }
+
+        // 2. Initialize Admin Editor
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (sessionStorage.getItem('arzon_admin_logged') === 'true') {
+                document.getElementById('login-overlay').classList.add('hidden');
+            }
+
+            await loadSiteData();
+            CMS_STATE = JSON.parse(JSON.stringify(SITE_DATA));
+
+            // Load saved GitHub token if any
+            const savedToken = localStorage.getItem('arzon_gh_token');
+            if (savedToken) document.getElementById('gh-token').value = savedToken;
+
+            populateAllEditors();
+            if (window.lucide) lucide.createIcons();
+        });
+
+        function openTab(tabName) {
+            document.querySelectorAll('.nav-tab').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-tab') === tabName);
+            });
+            document.querySelectorAll('.tab-pane').forEach(pane => {
+                pane.classList.toggle('active', pane.id === 'tab-' + tabName);
+            });
+            if (window.lucide) lucide.createIcons();
+        }
+
+        // 3. Populate Editors from CMS_STATE
+        function populateAllEditors() {
+            // General
+            const g = CMS_STATE.general || {};
+            const gKeys = [
+                'brandTitle', 'brandHighlight', 'botUsername', 'botUrl', 'onlineCount',
+                'holoStartPrice', 'heroBadge', 'heroTitleLine1', 'heroTitleGlitch',
+                'heroSubtitle', 'heroCtaPrimary', 'heroCtaSecondary', 'ctaTitle',
+                'ctaDesc', 'footerDesc', 'copyright'
+            ];
+            gKeys.forEach(k => {
+                const el = document.getElementById('gen-' + k);
+                if (el) el.value = g[k] !== undefined ? g[k] : '';
+            });
+
+            renderCountriesEditor();
+            renderStatsEditor();
+            renderTickersEditor();
+            renderToastsEditor();
+            renderSimEditor();
+            renderFeaturesEditor();
+            renderStepsEditor();
+            renderFaqsEditor();
+        }
+
+        // COUNTRIES EDITOR
+        function renderCountriesEditor() {
+            const wrap = document.getElementById('countries-editor-list');
+            wrap.innerHTML = (CMS_STATE.countries || []).map((c, i) => {
+                const cats = Array.isArray(c.category) ? c.category : [];
+                const p = c.prices || {};
+                return `
+                    <div class="country-edit-card">
+                        <div class="country-edit-head">
+                            <strong style="font-size:1.05rem;">${c.flag || '🌐'} ${c.name} (${c.code})</strong>
+                            <button class="btn btn-danger" style="padding:6px 10px; font-size:0.75rem;" onclick="removeCountry(${i})">
+                                O'chirish
+                            </button>
+                        </div>
+                        <div class="form-grid" style="grid-template-columns: 70px 1fr 95px;">
+                            <div class="form-group">
+                                <label>Bayroq:</label>
+                                <input type="text" class="form-input" value="${c.flag || ''}" oninput="CMS_STATE.countries[${i}].flag = this.value">
+                            </div>
+                            <div class="form-group">
+                                <label>Davlat nomi:</label>
+                                <input type="text" class="form-input" value="${c.name || ''}" oninput="CMS_STATE.countries[${i}].name = this.value">
+                            </div>
+                            <div class="form-group">
+                                <label>Kod:</label>
+                                <input type="text" class="form-input" value="${c.code || ''}" oninput="CMS_STATE.countries[${i}].code = this.value">
+                            </div>
+                        </div>
+                        <div class="form-grid" style="grid-template-columns: 1fr 1fr 90px;">
+                            <div class="form-group">
+                                <label>Nishon (Badge):</label>
+                                <input type="text" class="form-input" value="${c.badge || ''}" oninput="CMS_STATE.countries[${i}].badge = this.value">
+                            </div>
+                            <div class="form-group">
+                                <label>Qoldiq (Stock):</label>
+                                <input type="text" class="form-input" value="${c.stock || ''}" oninput="CMS_STATE.countries[${i}].stock = this.value">
+                            </div>
+                            <div class="form-group">
+                                <label>SMS vaqti:</label>
+                                <input type="text" class="form-input" value="${c.smsSpeed || '~4 sek'}" oninput="CMS_STATE.countries[${i}].smsSpeed = this.value">
+                            </div>
+                        </div>
+                        <div class="category-checks">
+                            <label><input type="checkbox" ${cats.includes('cheap') ? 'checked' : ''} onchange="toggleCountryCat(${i}, 'cheap', this.checked)"> 🔥 Eng arzon</label>
+                            <label><input type="checkbox" ${cats.includes('vip') ? 'checked' : ''} onchange="toggleCountryCat(${i}, 'vip', this.checked)"> 👑 VIP</label>
+                            <label><input type="checkbox" ${cats.includes('cis') ? 'checked' : ''} onchange="toggleCountryCat(${i}, 'cis', this.checked)"> 🌍 MDH & Osiyo</label>
+                        </div>
+                        <div class="price-inputs-grid">
+                            <div class="form-group" style="margin:0;">
+                                <label>✈️ Telegram (so'm):</label>
+                                <input type="text" class="form-input" value="${p.telegram || ''}" oninput="CMS_STATE.countries[${i}].prices.telegram = this.value">
+                            </div>
+                            <div class="form-group" style="margin:0;">
+                                <label>💬 WhatsApp (so'm):</label>
+                                <input type="text" class="form-input" value="${p.whatsapp || ''}" oninput="CMS_STATE.countries[${i}].prices.whatsapp = this.value">
+                            </div>
+                            <div class="form-group" style="margin:0;">
+                                <label>📸 Instagram (so'm):</label>
+                                <input type="text" class="form-input" value="${p.instagram || ''}" oninput="CMS_STATE.countries[${i}].prices.instagram = this.value">
+                            </div>
+                            <div class="form-group" style="margin:0;">
+                                <label>🌐 Google (so'm):</label>
+                                <input type="text" class="form-input" value="${p.google || ''}" oninput="CMS_STATE.countries[${i}].prices.google = this.value">
+                            </div>
+                            <div class="form-group" style="margin:0; grid-column: span 2;">
+                                <label>🎵 TikTok / OpenAI (so'm):</label>
+                                <input type="text" class="form-input" value="${p.tiktok || ''}" oninput="CMS_STATE.countries[${i}].prices.tiktok = this.value">
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function toggleCountryCat(idx, cat, checked) {
+            let arr = CMS_STATE.countries[idx].category || [];
+            if (checked && !arr.includes(cat)) arr.push(cat);
+            if (!checked) arr = arr.filter(x => x !== cat);
+            CMS_STATE.countries[idx].category = arr;
+        }
+
+        function addNewCountry() {
+            CMS_STATE.countries.unshift({
+                id: 'new_' + Date.now(),
+                name: "Yangi Davlat",
+                code: "+999",
+                flag: "🏳️",
+                category: ["cheap"],
+                badge: "YANGI 🔥",
+                stock: "500 ta bor",
+                smsSpeed: "~4 sek",
+                prices: { telegram: "4,000", whatsapp: "4,500", instagram: "2,500", google: "3,000", tiktok: "2,800" }
+            });
+            renderCountriesEditor();
+            showStatus("➕ Yangi davlat qo'shildi! Endi uni tahrirlab 'Saqlash'ni bosing.");
+        }
+
+        function removeCountry(idx) {
+            if (!confirm("Ushbu davlatni o'chirishni xohlaysizmi?")) return;
+            CMS_STATE.countries.splice(idx, 1);
+            renderCountriesEditor();
+        }
+
+        // STATS EDITOR
+        function renderStatsEditor() {
+            const wrap = document.getElementById('stats-editor-list');
+            wrap.innerHTML = (CMS_STATE.stats || []).map((s, i) => `
+                <div class="card-box" style="margin:0; background:rgba(2,6,18,0.5);">
+                    <div class="form-group">
+                        <label>Ko'rsatkich (${i+1}):</label>
+                        <input type="text" class="form-input" value="${s.value}" oninput="CMS_STATE.stats[${i}].value = this.value">
+                    </div>
+                    <div class="form-group" style="margin:0;">
+                        <label>Izoh (${i+1}):</label>
+                        <input type="text" class="form-input" value="${s.label}" oninput="CMS_STATE.stats[${i}].label = this.value">
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // TICKERS EDITOR
+        function renderTickersEditor() {
+            const wrap = document.getElementById('tickers-editor-list');
+            wrap.innerHTML = (CMS_STATE.tickers || []).map((t, i) => `
+                <div style="display:flex; gap:10px; margin-bottom:10px;">
+                    <input type="text" class="form-input" style="flex:1;" value="${t.replace(/"/g, '&quot;')}" oninput="CMS_STATE.tickers[${i}] = this.value">
+                    <button class="btn btn-danger" onclick="CMS_STATE.tickers.splice(${i},1); renderTickersEditor();">O'chirish</button>
+                </div>
+            `).join('');
+        }
+        function addTickerItem() {
+            CMS_STATE.tickers.push("🔥 YANGI AKSIYA: Barcha raqamlarga chegirma!");
+            renderTickersEditor();
+        }
+
+        // TOASTS EDITOR
+        function renderToastsEditor() {
+            const wrap = document.getElementById('toasts-editor-list');
+            wrap.innerHTML = (CMS_STATE.toasts || []).map((t, i) => `
+                <div style="display:grid; grid-template-columns: 1fr 1.5fr auto; gap:10px; margin-bottom:10px;">
+                    <input type="text" class="form-input" placeholder="@username xarid qildi" value="${t.user}" oninput="CMS_STATE.toasts[${i}].user = this.value">
+                    <input type="text" class="form-input" placeholder="Davlat va narx" value="${t.item}" oninput="CMS_STATE.toasts[${i}].item = this.value">
+                    <button class="btn btn-danger" onclick="CMS_STATE.toasts.splice(${i},1); renderToastsEditor();">O'chirish</button>
+                </div>
+            `).join('');
+        }
+        function addToastItem() {
+            CMS_STATE.toasts.push({ user: "@yangi_mijoz xarid qildi", item: "🇺🇸 AQSh (+1) Telegram — 4,500 so'm" });
+            renderToastsEditor();
+        }
+
+        // SIMULATOR EDITOR
+        function renderSimEditor() {
+            const wrap = document.getElementById('sim-editor-list');
+            wrap.innerHTML = (CMS_STATE.simulatorOptions || []).map((opt, i) => `
+                <div class="card-box" style="margin:0;">
+                    <div class="form-group">
+                        <label>Davlat nomi va kodi:</label>
+                        <input type="text" class="form-input" value="${opt.title}" oninput="CMS_STATE.simulatorOptions[${i}].title = this.value">
+                    </div>
+                    <div class="form-group">
+                        <label>Namuna telefon raqam:</label>
+                        <input type="text" class="form-input" value="${opt.phone}" oninput="CMS_STATE.simulatorOptions[${i}].phone = this.value">
+                    </div>
+                    <div class="form-group">
+                        <label>Narxi:</label>
+                        <input type="text" class="form-input" value="${opt.price}" oninput="CMS_STATE.simulatorOptions[${i}].price = this.value">
+                    </div>
+                    <button class="btn btn-danger" style="width:100%; justify-content:center;" onclick="CMS_STATE.simulatorOptions.splice(${i},1); renderSimEditor();">O'chirish</button>
+                </div>
+            `).join('');
+        }
+        function addSimOption() {
+            CMS_STATE.simulatorOptions.push({ title: "🇬🇧 Angliya (+44)", phone: "+44 7911 892011", price: "6,400 so'm" });
+            renderSimEditor();
+        }
+
+        // FEATURES & STEPS EDITOR
+        function renderFeaturesEditor() {
+            const wrap = document.getElementById('features-editor-list');
+            wrap.innerHTML = (CMS_STATE.features || []).map((f, i) => `
+                <div style="border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:14px; margin-bottom:14px;">
+                    <div class="form-group">
+                        <label>Sarlavha (${i+1}):</label>
+                        <input type="text" class="form-input" value="${f.title}" oninput="CMS_STATE.features[${i}].title = this.value">
+                    </div>
+                    <div class="form-group" style="margin:0;">
+                        <label>Tavsif (${i+1}):</label>
+                        <textarea class="form-textarea" oninput="CMS_STATE.features[${i}].desc = this.value">${f.desc}</textarea>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderStepsEditor() {
+            const wrap = document.getElementById('steps-editor-list');
+            wrap.innerHTML = (CMS_STATE.steps || []).map((s, i) => `
+                <div class="form-grid" style="margin-bottom:12px;">
+                    <div class="form-group">
+                        <label>${s.badge} Sarlavhasi:</label>
+                        <input type="text" class="form-input" value="${s.title}" oninput="CMS_STATE.steps[${i}].title = this.value">
+                    </div>
+                    <div class="form-group">
+                        <label>${s.badge} Izohi:</label>
+                        <input type="text" class="form-input" value="${s.desc}" oninput="CMS_STATE.steps[${i}].desc = this.value">
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // FAQS EDITOR
+        function renderFaqsEditor() {
+            const wrap = document.getElementById('faqs-editor-list');
+            wrap.innerHTML = (CMS_STATE.faqs || []).map((f, i) => `
+                <div class="card-box">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                        <strong style="color:var(--cyan);">Savol #${i+1}</strong>
+                        <button class="btn btn-danger" style="padding:4px 10px; font-size:0.75rem;" onclick="CMS_STATE.faqs.splice(${i},1); renderFaqsEditor();">O'chirish</button>
+                    </div>
+                    <div class="form-group">
+                        <label>Savol:</label>
+                        <input type="text" class="form-input" value="${f.question}" oninput="CMS_STATE.faqs[${i}].question = this.value">
+                    </div>
+                    <div class="form-group" style="margin:0;">
+                        <label>Javob:</label>
+                        <textarea class="form-textarea" oninput="CMS_STATE.faqs[${i}].answer = this.value">${f.answer}</textarea>
+                    </div>
+                </div>
+            `).join('');
+        }
+        function addFaqItem() {
+            CMS_STATE.faqs.push({ question: "Yangi savol?", answer: "Bu yerga javob yozing..." });
+            renderFaqsEditor();
+        }
+
+        // COLLECT GENERAL INPUTS & SAVE
+        function collectGeneralInputs() {
+            const gKeys = [
+                'brandTitle', 'brandHighlight', 'botUsername', 'botUrl', 'onlineCount',
+                'holoStartPrice', 'heroBadge', 'heroTitleLine1', 'heroTitleGlitch',
+                'heroSubtitle', 'heroCtaPrimary', 'heroCtaSecondary', 'ctaTitle',
+                'ctaDesc', 'footerDesc', 'copyright'
+            ];
+            gKeys.forEach(k => {
+                const el = document.getElementById('gen-' + k);
+                if (el) {
+                    CMS_STATE.general[k] = k === 'onlineCount' ? Number(el.value) : el.value;
+                }
+            });
+        }
+
+        function saveAllChanges() {
+            collectGeneralInputs();
+            localStorage.setItem('arzon_nomer_cms_data', JSON.stringify(CMS_STATE));
+            showStatus("✅ Barcha o'zgarishlar saqlandi! 'Saytni ko'rish' tugmasini bosib tekshiring.");
+        }
+
+        function downloadDataJson() {
+            saveAllChanges();
+            const blob = new Blob([JSON.stringify(CMS_STATE, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'data.json';
+            a.click();
+            URL.revokeObjectURL(url);
+            showStatus("📥 data.json yuklab olindi!");
+        }
+
+        function copyDataJson() {
+            saveAllChanges();
+            navigator.clipboard.writeText(JSON.stringify(CMS_STATE, null, 2));
+            showStatus("📋 data.json kodi buferga nusxalandi!");
+        }
+
+        function resetToDefaultData() {
+            if (!confirm("Barcha o'zgarishlarni o'chirib, dastlabki holatga qaytarmoqchimisiz?")) return;
+            localStorage.removeItem('arzon_nomer_cms_data');
+            location.reload();
+        }
+
+        // DIRECT GITHUB API PUSH (Updates data.json in repo -> triggers Netlify build)
+        async function pushToGitHubAPI() {
+            saveAllChanges();
+            const repo = document.getElementById('gh-repo').value.trim();
+            const branch = document.getElementById('gh-branch').value.trim() || 'main';
+            const token = document.getElementById('gh-token').value.trim();
+            const statusEl = document.getElementById('gh-push-status');
+
+            if (!token) {
+                statusEl.innerHTML = `<span style="color:var(--warning)">⚠️ GitHub Personal Access Token kiritilmadi! Pastdagi "data.json faylini yuklab olish" tugmasidan foydalaning yoki Token kiriting.</span>`;
+                return;
+            }
+
+            localStorage.setItem('arzon_gh_token', token);
+            statusEl.innerHTML = `<span style="color:var(--cyan)">⏳ GitHub serveriga ulanmoqda va data.json yangilanmoqda...</span>`;
+
+            try {
+                const apiUrl = `https://api.github.com/repos/${repo}/contents/data.json`;
+                let sha = null;
+
+                // Get current file SHA if exists
+                const getRes = await fetch(`${apiUrl}?ref=${branch}`, {
+                    headers: { 'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github+json' }
+                });
+                if (getRes.ok) {
+                    const fileInfo = await getRes.json();
+                    sha = fileInfo.sha;
+                }
+
+                // Encode UTF-8 JSON to Base64
+                const jsonString = JSON.stringify(CMS_STATE, null, 2);
+                const base64Content = btoa(unescape(encodeURIComponent(jsonString)));
+
+                const bodyPayload = {
+                    message: "Update site content & prices via Admin Panel",
+                    content: base64Content,
+                    branch: branch
+                };
+                if (sha) bodyPayload.sha = sha;
+
+                const putRes = await fetch(apiUrl, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Accept': 'application/vnd.github+json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(bodyPayload)
+                });
+
+                if (putRes.ok) {
+                    statusEl.innerHTML = `<span style="color:var(--emerald)">🎉 Muvaffaqiyatli GitHub'ga joylandi! Netlify 15-20 soniya ichida saytni avtomatik yangilaydi!</span>`;
+                    showStatus("🚀 GitHub va Netlify muvaffaqiyatli yangilandi!");
+                } else {
+                    const errData = await putRes.json();
+                    statusEl.innerHTML = `<span style="color:var(--danger)">❌ Xatolik: ${errData.message || 'Token yoki Repo xato'}</span>`;
+                }
+            } catch (err) {
+                statusEl.innerHTML = `<span style="color:var(--danger)">❌ Tarmoq xatoligi: ${err.message}</span>`;
+            }
+        }
+
+        function showStatus(msg) {
+            const banner = document.getElementById('status-banner');
+            document.getElementById('status-text').textContent = msg;
+            banner.classList.add('show');
+            setTimeout(() => banner.classList.remove('show'), 4000);
+        }
+    </script>
+</body>
+</html>

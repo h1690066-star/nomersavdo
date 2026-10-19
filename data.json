@@ -1,0 +1,320 @@
+{
+  "general": {
+    "brandTitle": "ARZON NOMER",
+    "brandHighlight": "UZB",
+    "botUsername": "@arzonnomeruzbbot",
+    "botUrl": "https://t.me/arzonnomeruzbbot",
+    "onlineCount": 842,
+    "heroBadge": "👑 O'ZBEKISTONDAGI #1 AVTOMATLASHGAN RAQAMLAR BOTI",
+    "heroTitleLine1": "TELEGRAM VA BOSHQA TARMOQLAR UCHUN",
+    "heroTitleGlitch": "ENG ARZON RAQAMLAR",
+    "heroSubtitle": "Hech qanday SIM-kartasiz va pasportsiz! 120+ davlat virtual raqamlarini 5 soniya ichida oling. SMS kod kelmasa — pulingiz 100% avtomatik qaytadi!",
+    "heroCtaPrimary": "RAQAM OLISH (@arzonnomeruzbbot)",
+    "heroCtaSecondary": "Narxlarni ko'rish",
+    "holoStartPrice": "2,900 UZS",
+    "ctaTitle": "HOZIROQ BIRINCHI RAQAMINGIZNI OLING!",
+    "ctaDesc": "45,000+ foydalanuvchilar qatoriga qo'shiling. Eng arzon narxlar, 24/7 avtomatik bot va 100% kafolat sizni kutmoqda.",
+    "footerDesc": "O'zbekistondagi eng ishonchli va tezkor virtual raqamlar (SMS-aktivatsiya) platformasi. Barcha xizmatlar avtomatlashtirilgan.",
+    "copyright": "© 2026 Arzon Nomer Uzb (@arzonnomeruzbbot). Barcha huquqlar himoyalangan."
+  },
+  "stats": [
+    { "value": "45,000+", "label": "Faol mijozlar" },
+    { "value": "120+", "label": "Davlatlar bazasi" },
+    { "value": "4.5 sek", "label": "SMS kelish tezligi" }
+  ],
+  "tickers": [
+    "🟢 JONLI STATISTIKA: Bugun 1,420+ ta raqam sotildi",
+    "⚡ TEZKOR KOD: SMS kodlar o'rtacha 4.2 soniyada kelmoqda",
+    "🔥 AKSIYA: AQSh (+1) va Kanada (+1) Telegram raqamlari 35% chegirmada!",
+    "🛡️ KAFOLAT: Kod kelmasa, pulingiz 100% avtomatik balansga qaytadi",
+    "💎 BOT MANZILI: @arzonnomeruzbbot — 24/7 Avtomatik xizmat"
+  ],
+  "countries": [
+    {
+      "id": "id",
+      "name": "Indoneziya",
+      "code": "+62",
+      "flag": "🇮🇩",
+      "category": ["cheap", "cis"],
+      "badge": "ENG ARZON 🔥",
+      "stock": "4,820 ta bor",
+      "smsSpeed": "~4 sek",
+      "prices": {
+        "telegram": "2,900",
+        "whatsapp": "3,200",
+        "instagram": "1,900",
+        "google": "2,400",
+        "tiktok": "2,100"
+      }
+    },
+    {
+      "id": "us",
+      "name": "AQSh (USA)",
+      "code": "+1",
+      "flag": "🇺🇸",
+      "category": ["cheap", "vip"],
+      "badge": "BESTSELLER ⭐",
+      "stock": "9,150 ta bor",
+      "smsSpeed": "~3 sek",
+      "prices": {
+        "telegram": "4,500",
+        "whatsapp": "5,200",
+        "instagram": "2,800",
+        "google": "3,900",
+        "tiktok": "3,200"
+      }
+    },
+    {
+      "id": "uz",
+      "name": "O'zbekiston",
+      "code": "+998",
+      "flag": "🇺🇿",
+      "category": ["vip", "cis"],
+      "badge": "MILLIY VIP 👑",
+      "stock": "340 ta bor",
+      "smsSpeed": "~3 sek",
+      "prices": {
+        "telegram": "11,500",
+        "whatsapp": "12,000",
+        "instagram": "6,500",
+        "google": "7,900",
+        "tiktok": "6,000"
+      }
+    },
+    {
+      "id": "kz",
+      "name": "Qozog'iston",
+      "code": "+7",
+      "flag": "🇰🇿",
+      "category": ["vip", "cis"],
+      "badge": "SPAMGA CHIDAMLI 🛡️",
+      "stock": "1,640 ta bor",
+      "smsSpeed": "~4 sek",
+      "prices": {
+        "telegram": "6,900",
+        "whatsapp": "7,500",
+        "instagram": "3,800",
+        "google": "4,900",
+        "tiktok": "4,200"
+      }
+    },
+    {
+      "id": "vn",
+      "name": "Vetnam",
+      "code": "+84",
+      "flag": "🇻🇳",
+      "category": ["cheap"],
+      "badge": "TEZKOR SMS ⚡",
+      "stock": "3,290 ta bor",
+      "smsSpeed": "~4 sek",
+      "prices": {
+        "telegram": "3,400",
+        "whatsapp": "3,800",
+        "instagram": "2,200",
+        "google": "2,900",
+        "tiktok": "2,500"
+      }
+    },
+    {
+      "id": "ru",
+      "name": "Rossiya",
+      "code": "+7",
+      "flag": "🇷🇺",
+      "category": ["cis", "vip"],
+      "badge": "TOP SIFAT 💎",
+      "stock": "2,910 ta bor",
+      "smsSpeed": "~4 sek",
+      "prices": {
+        "telegram": "7,800",
+        "whatsapp": "8,400",
+        "instagram": "4,100",
+        "google": "5,200",
+        "tiktok": "4,600"
+      }
+    },
+    {
+      "id": "ca",
+      "name": "Kanada",
+      "code": "+1",
+      "flag": "🇨🇦",
+      "category": ["vip"],
+      "badge": "TOZA IP ❄️",
+      "stock": "2,100 ta bor",
+      "smsSpeed": "~4 sek",
+      "prices": {
+        "telegram": "5,200",
+        "whatsapp": "5,900",
+        "instagram": "3,100",
+        "google": "4,200",
+        "tiktok": "3,500"
+      }
+    },
+    {
+      "id": "gb",
+      "name": "Angliya (UK)",
+      "code": "+44",
+      "flag": "🇬🇧",
+      "category": ["vip"],
+      "badge": "YEVROPA VIP 👑",
+      "stock": "1,480 ta bor",
+      "smsSpeed": "~5 sek",
+      "prices": {
+        "telegram": "6,400",
+        "whatsapp": "7,200",
+        "instagram": "3,900",
+        "google": "4,800",
+        "tiktok": "4,100"
+      }
+    },
+    {
+      "id": "tr",
+      "name": "Turkiya",
+      "code": "+90",
+      "flag": "🇹🇷",
+      "category": ["cis"],
+      "badge": "MASHHUR 🔥",
+      "stock": "1,850 ta bor",
+      "smsSpeed": "~4 sek",
+      "prices": {
+        "telegram": "5,800",
+        "whatsapp": "6,400",
+        "instagram": "3,200",
+        "google": "4,100",
+        "tiktok": "3,600"
+      }
+    },
+    {
+      "id": "kg",
+      "name": "Qirg'iziston",
+      "code": "+996",
+      "flag": "🇰🇬",
+      "category": ["cis"],
+      "badge": "MDH ISHONCHLI ✅",
+      "stock": "920 ta bor",
+      "smsSpeed": "~4 sek",
+      "prices": {
+        "telegram": "6,200",
+        "whatsapp": "6,800",
+        "instagram": "3,600",
+        "google": "4,400",
+        "tiktok": "3,900"
+      }
+    },
+    {
+      "id": "ph",
+      "name": "Filippin",
+      "code": "+63",
+      "flag": "🇵🇭",
+      "category": ["cheap"],
+      "badge": "HAMYONBOP 💰",
+      "stock": "3,740 ta bor",
+      "smsSpeed": "~5 sek",
+      "prices": {
+        "telegram": "3,600",
+        "whatsapp": "4,000",
+        "instagram": "2,300",
+        "google": "2,800",
+        "tiktok": "2,400"
+      }
+    },
+    {
+      "id": "de",
+      "name": "Germaniya",
+      "code": "+49",
+      "flag": "🇩🇪",
+      "category": ["vip"],
+      "badge": "PREMIUM SIFAT 🏆",
+      "stock": "890 ta bor",
+      "smsSpeed": "~4 sek",
+      "prices": {
+        "telegram": "8,900",
+        "whatsapp": "9,500",
+        "instagram": "5,100",
+        "google": "6,200",
+        "tiktok": "5,400"
+      }
+    }
+  ],
+  "simulatorOptions": [
+    { "title": "🇺🇸 AQSh (+1)", "phone": "+1 (415) 890-3421", "price": "4,500 so'm" },
+    { "title": "🇮🇩 Indoneziya (+62)", "phone": "+62 812-9940-1823", "price": "2,900 so'm" },
+    { "title": "🇰🇿 Qozog'iston (+7)", "phone": "+7 (707) 541-9920", "price": "6,900 so'm" },
+    { "title": "🇺🇿 O'zbekiston (+998)", "phone": "+998 (93) 581-40-22", "price": "11,500 so'm" }
+  ],
+  "features": [
+    {
+      "icon": "zap",
+      "span2": true,
+      "title": "100% Avtomatlashtirilgan Tezkor Tizim",
+      "desc": "Adminga yozib kutib o'tirmaysiz! Kechasi soat 03:00 bo'ladimi yoki ertalabmi — botimiz 24/7 rejimida to'lovni avtomatik qabul qiladi va 3 soniya ichida raqam hamda SMS kodni beradi.",
+      "chips": ["⚡ 0 soniya kutish", "🤖 To'liq Avto-Bot", "🔥 API Integratsiya"]
+    },
+    {
+      "icon": "refresh-ccw",
+      "span2": false,
+      "title": "Kod kelmasa — Pul 100% Qaytadi",
+      "desc": "Agar tanlangan raqamga SMS kod kelmasa yoki raqamni bekor qilsangiz, mablag'ingiz bir tiyin ham ushlanmasdan darhol balansingizga qaytadi.",
+      "chips": []
+    },
+    {
+      "icon": "credit-card",
+      "span2": false,
+      "title": "Oson To'lov Tizimlari",
+      "desc": "Humo, Uzcard, Click, Payme, Uzum Bank va hatto Kripto / Rubl orqali ham hisobingizni sanoqli soniyalarda komissiyasiz to'ldirishingiz mumkin.",
+      "chips": []
+    },
+    {
+      "icon": "shield-alert",
+      "span2": true,
+      "title": "Spamdan Toza & Yuqori Sifatli Raqamlar",
+      "desc": "Bizning serverlarimiz to'g'ridan-to'g'ri xalqaro mobil operatorlar shlyuziga ulangan. Shu sababli olingan akkauntlar uzoq muddat ishlaydi va bloklanib ketmaydi.",
+      "chips": ["🛡️ Toza IP Shlyuz", "👑 VIP Operatorlar", "🔒 Maxfiylik 100%"]
+    }
+  ],
+  "steps": [
+    {
+      "badge": "QADAM 01",
+      "icon": "send",
+      "title": "Botga start bosing",
+      "desc": "Telegram orqali @arzonnomeruzbbot manziliga kiring va Start tugmasini bosing."
+    },
+    {
+      "badge": "QADAM 02",
+      "icon": "wallet",
+      "title": "Hisobni to'ldiring va tanlang",
+      "desc": "Click/Payme/Karta orqali balansni to'ldiring va 120+ davlatdan o'zingizga ma'qulini tanlang."
+    },
+    {
+      "badge": "QADAM 03",
+      "icon": "check-circle-2",
+      "title": "Raqam va SMS kodni oling!",
+      "desc": "Berilgan raqamni Telegram/WhatsApp'ga kiriting va bot yuborgan SMS kod bilan akkauntni oching!"
+    }
+  ],
+  "faqs": [
+    {
+      "question": "Raqamga SMS kod kelmasa pulim kuyadimi?",
+      "answer": "Aslo yo'q! Agar tanlagan raqamingizga SMS kod kelmasa va siz 'Bekor qilish' tugmasini bossangiz, pulingiz 100% o'sha zahoti botdagi balansingizga qaytadi. Siz faqat muvaffaqiyatli kelgan SMS kod uchungina to'laysiz."
+    },
+    {
+      "question": "Olingan raqamni boshqa odamga ham sotasizlarmi?",
+      "answer": "Yo'q! Har bir raqam tizim tomonidan faqat bir marta sotiladi va aktivatsiyadan so'ng bazadan butunlay o'chiriladi. Xavfsizlikni yanada oshirish uchun akkaunt ochgach, 'Ikki bosqichli tekshiruv' (2FA parol) o'rnatib olishni tavsiya qilamiz."
+    },
+    {
+      "question": "Qaysi davlat raqamlari Telegram uchun eng yaxshi va uzoq ishlaydi?",
+      "answer": "Eng arzon variant sifatida Indoneziya (+62), Vetnam (+84) va AQSh (+1) raqamlari juda mashhur. Agar spamga juda chidamli va uzoq yillar ishlaydigan VIP akkaunt kerak bo'lsa, O'zbekiston (+998), Qozog'iston (+7) yoki Yevropa davlatlarini tavsiya qilamiz."
+    },
+    {
+      "question": "Botda hisobni qanday to'ldirish mumkin va minimal summa qancha?",
+      "answer": "Bot ichida Humo, Uzcard, Click, Payme hamda Kripto orqali avtomatik to'ldirish mavjud. Minimal hisob to'ldirish summasi atigi 3,000 so'mni tashkil etadi — ya'ni bitta raqam olish uchun ham bemalol to'lov qila olasiz!"
+    }
+  ],
+  "toasts": [
+    { "user": "@shoxrux_dev xarid qildi", "item": "🇺🇸 AQSh (+1) Telegram — 4,500 so'm" },
+    { "user": "@abror_uzb xarid qildi", "item": "🇮🇩 Indoneziya (+62) Telegram — 2,900 so'm" },
+    { "user": "@sardor_vip xarid qildi", "item": "🇺🇿 O'zbekiston (+998) WhatsApp — 12,000 so'm" },
+    { "user": "@bekzod_77 xarid qildi", "item": "🇰🇿 Qozog'iston (+7) Telegram — 6,900 so'm" },
+    { "user": "@malika_smm xarid qildi", "item": "🇬🇧 Angliya (+44) Instagram — 3,900 so'm" },
+    { "user": "@javohir_pro xarid qildi", "item": "🇻🇳 Vetnam (+84) Telegram — 3,400 so'm" }
+  ]
+}

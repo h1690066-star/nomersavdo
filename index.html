@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="uz" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARZON NOMER UZB — Telegram va Boshqa Tarmoqlar Uchun Raqamlar #1</title>
+    <meta name="description" content="Arzon Nomer Uzb (@arzonnomeruzbbot) - Telegram, WhatsApp, Instagram va 50+ xizmatlar uchun eng arzon va ishonchli virtual raqamlar. Avtomatik SMS kod qabul qilish 24/7!">
+    <link rel="icon" type="image/png" href="assets/logo.png">
+    
+    <!-- Google Fonts: Orbitron, Space Grotesk, Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Three.js for Real 3D WebGL Scene -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Custom Neon Cursor -->
+    <div id="cursor-dot" class="cursor-dot"></div>
+    <div id="cursor-glow" class="cursor-glow"></div>
+
+    <!-- Live Purchase Notification Toast (Bottom Left) -->
+    <div id="live-toast" class="live-toast">
+        <div class="toast-avatar">
+            <i data-lucide="zap" class="icon-cyan"></i>
+        </div>
+        <div class="toast-content">
+            <div class="toast-title" id="toast-user">@jasur_99 xarid qildi</div>
+            <div class="toast-desc" id="toast-item">🇺🇸 AQSh (+1) Telegram raqam — 4,500 so'm</div>
+        </div>
+        <span class="toast-time">Hozirgina</span>
+    </div>
+
+    <!-- Background 3D WebGL Canvas -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Ambient Cyber Grid & Vignette Overlays -->
+    <div class="cyber-grid-overlay"></div>
+    <div class="radial-glow glow-top-left"></div>
+    <div class="radial-glow glow-bottom-right"></div>
+
+    <!-- Top Live Ticker Marquee -->
+    <div class="cyber-ticker">
+        <div class="ticker-track">
+            <div class="ticker-item"><span class="pulse-dot"></span> <b>JONLI STATISTIKA:</b> Bugun 1,420+ ta raqam sotildi</div>
+            <div class="ticker-item">⚡ <b>TEZKOR KOD:</b> SMS kodlar o'rtacha 4.2 soniyada kelmoqda</div>
+            <div class="ticker-item">🔥 <b>AKSIYA:</b> AQSh (+1) va Kanada (+1) Telegram raqamlari 35% chegirmada!</div>
+            <div class="ticker-item">🛡️ <b>KAFOLAT:</b> Kod kelmasa, pulingiz 100% avtomatik balansga qaytadi</div>
+            <div class="ticker-item">💎 <b>BOT MANZILI:</b> @arzonnomeruzbbot — 24/7 Avtomatik xizmat</div>
+            <!-- Duplicate for seamless loop -->
+            <div class="ticker-item"><span class="pulse-dot"></span> <b>JONLI STATISTIKA:</b> Bugun 1,420+ ta raqam sotildi</div>
+            <div class="ticker-item">⚡ <b>TEZKOR KOD:</b> SMS kodlar o'rtacha 4.2 soniyada kelmoqda</div>
+            <div class="ticker-item">🔥 <b>AKSIYA:</b> AQSh (+1) va Kanada (+1) Telegram raqamlari 35% chegirmada!</div>
+            <div class="ticker-item">🛡️ <b>KAFOLAT:</b> Kod kelmasa, pulingiz 100% avtomatik balansga qaytadi</div>
+            <div class="ticker-item">💎 <b>BOT MANZILI:</b> @arzonnomeruzbbot — 24/7 Avtomatik xizmat</div>
+        </div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="brand-logo">
+                <div class="logo-ring">
+                    <img src="assets/logo.png" alt="Arzon Nomer Uzb Logo">
+                </div>
+                <div class="brand-text">
+                    <span class="brand-title">ARZON NOMER <span class="text-cyan">UZB</span></span>
+                    <span class="brand-sub">@arzonnomeruzbbot</span>
+                </div>
+            </a>
+
+            <nav class="nav-links">
+                <a href="#catalog" class="nav-link">Raqamlar & Narxlar</a>
+                <a href="#simulator" class="nav-link">3D Jonli Demo</a>
+                <a href="#features" class="nav-link">Afzalliklar</a>
+                <a href="#how-it-works" class="nav-link">Qanday ishlaydi?</a>
+                <a href="#faq" class="nav-link">Savol-Javob</a>
+            </nav>
+
+            <div class="nav-actions">
+                <div class="online-badge">
+                    <span class="online-dot"></span>
+                    <span id="online-count">842</span> online
+                </div>
+                <a href="https://t.me/arzonnomeruzbbot" target="_blank" rel="noopener noreferrer" class="btn-cyber btn-sm">
+                    <i data-lucide="send"></i>
+                    <span>Botga kirish</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+        <div class="container hero-grid">
+            <!-- Left Content -->
+            <div class="hero-content">
+                <div class="cyber-badge">
+                    <span class="badge-icon">👑</span>
+                    <span>O'ZBEKISTONDAGI #1 AVTOMATASHGAN RAQAMLAR BOTI</span>
+                </div>
+
+                <h1 class="hero-title">
+                    TELEGRAM VA BOSHQA TARMOQLAR UCHUN <br>
+                    <span class="glitch-text" data-text="ENG ARZON RAQAMLAR">ENG ARZON RAQAMLAR</span>
+                </h1>
+
+                <p class="hero-subtitle">
+                    Hech qanday SIM-kartasiz va pasportsiz! <strong>120+ davlat</strong> virtual raqamlarini 5 soniya ichida oling. SMS kod kelmasa — pulingiz <strong>100% avtomatik</strong> qaytadi!
+                </p>
+
+                <!-- Hero CTA Buttons -->
+                <div class="hero-cta-group">
+                    <a href="https://t.me/arzonnomeruzbbot" target="_blank" rel="noopener noreferrer" class="btn-cyber btn-lg pulse-glow">
+                        <span class="btn-cyber-bg"></span>
+                        <i data-lucide="bot"></i>
+                        <span>RAQAM OLISH (@arzonnomeruzbbot)</span>
+                        <i data-lucide="arrow-up-right" class="arrow-icon"></i>
+                    </a>
+                    <a href="#catalog" class="btn-glass btn-lg">
+                        <i data-lucide="layers"></i>
+                        <span>Narxlarni ko'rish</span>
+                    </a>
+                </div>
+
+                <!-- Live Metrics Strip -->
+                <div class="hero-stats-grid">
+                    <div class="stat-box tilt-card" data-tilt>
+                        <div class="stat-num"><span class="counter" data-target="45000">45,000</span>+</div>
+                        <div class="stat-label">Faol mijozlar</div>
+                    </div>
+                    <div class="stat-box tilt-card" data-tilt>
+                        <div class="stat-num"><span class="counter" data-target="120">120</span>+</div>
+                        <div class="stat-label">Davlatlar bazasi</div>
+                    </div>
+                    <div class="stat-box tilt-card" data-tilt>
+                        <div class="stat-num">4.5 <span class="text-cyan">sek</span></div>
+                        <div class="stat-label">SMS kelish tezligi</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right 3D Interactive Showcase -->
+            <div class="hero-visual">
+                <div class="holo-stage" id="holo-stage">
+                    <!-- Outer Rotating Cyber Rings -->
+                    <div class="cyber-ring ring-1"></div>
+                    <div class="cyber-ring ring-2"></div>
+                    <div class="cyber-ring ring-3"></div>
+
+                    <!-- Floating 3D Hologram Card -->
+                    <div class="holo-core tilt-card" id="hero-3d-card">
+                        <div class="holo-card-glow"></div>
+                        <div class="holo-header">
+                            <span class="holo-chip">
+                                <i data-lucide="cpu"></i> eSIM CHIP 5G
+                            </span>
+                            <span class="holo-status"><span class="online-dot"></span> ACTIVE 24/7</span>
+                        </div>
+
+                        <div class="holo-avatar-wrap">
+                            <div class="avatar-aura"></div>
+                            <img src="assets/logo.png" alt="Arzon Nomer Uzb Mascot" class="holo-mascot">
+                            <div class="floating-badge badge-tg">
+                                <i data-lucide="send"></i> Telegram
+                            </div>
+                            <div class="floating-badge badge-wa">
+                                <i data-lucide="message-circle"></i> WhatsApp
+                            </div>
+                            <div class="floating-badge badge-ig">
+                                <i data-lucide="instagram"></i> Instagram
+                            </div>
+                        </div>
+
+                        <!-- Live Interactive Number Preview inside 3D Card -->
+                        <div class="holo-terminal">
+                            <div class="terminal-top">
+                                <span class="term-dots"><i></i><i></i><i></i></span>
+                                <span class="term-title">JONLI AKTIVATSIYA STREAM</span>
+                            </div>
+                            <div class="terminal-body">
+                                <div class="term-row">
+                                    <span class="term-label">Tanlangan raqam:</span>
+                                    <span class="term-val text-cyan" id="hero-live-number">+1 (312) 894-5201</span>
+                                </div>
+                                <div class="term-row">
+                                    <span class="term-label">Davlat / Xizmat:</span>
+                                    <span class="term-val" id="hero-live-country">🇺🇸 AQSh • Telegram</span>
+                                </div>
+                                <div class="term-row sms-row">
+                                    <span class="term-label">SMS Kod:</span>
+                                    <span class="sms-code-pill" id="hero-live-code">84920</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="holo-footer">
+                            <div class="price-tag">
+                                <span class="price-caption">Boshlang'ich narx:</span>
+                                <span class="price-amount">2,900 UZS</span>
+                            </div>
+                            <a href="https://t.me/arzonnomeruzbbot" target="_blank" rel="noopener noreferrer" class="holo-buy-btn">
+                                Darhol olish <i data-lucide="zap"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE 3D CATALOG & PRICE CALCULATOR -->
+    <section id="catalog" class="section catalog-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag"><i data-lucide="globe"></i> 120+ DAVLATLAR VA 50+ XIZMATLAR</div>
+                <h2 class="section-title">JONLI RAQAMLAR <span class="text-cyan">VITRINASI</span></h2>
+                <p class="section-desc">O'zingizga kerakli xizmatni tanlang, narxlarni solishtiring va bir tugma orqali botda raqamni qabul qiling.</p>
+            </div>
+
+            <!-- Platform Filter Tabs -->
+            <div class="platform-tabs" id="platform-tabs">
+                <button class="platform-tab active" data-service="telegram">
+                    <i data-lucide="send"></i>
+                    <span>Telegram</span>
+                    <span class="tab-hot">ENG KO'P</span>
+                </button>
+                <button class="platform-tab" data-service="whatsapp">
+                    <i data-lucide="message-circle"></i>
+                    <span>WhatsApp</span>
+                </button>
+                <button class="platform-tab" data-service="instagram">
+                    <i data-lucide="instagram"></i>
+                    <span>Instagram</span>
+                </button>
+                <button class="platform-tab" data-service="google">
+                    <i data-lucide="chrome"></i>
+                    <span>Google / Gmail</span>
+                </button>
+                <button class="platform-tab" data-service="tiktok">
+                    <i data-lucide="music-2"></i>
+                    <span>TikTok / OpenAI</span>
+                </button>
+            </div>
+
+            <!-- Search & Region Bar -->
+            <div class="catalog-toolbar">
+                <div class="search-box">
+                    <i data-lucide="search"></i>
+                    <input type="text" id="country-search" placeholder="Davlat nomi yoki kodini yozing (masalan: AQSh, +998, Rossiya)...">
+                </div>
+                <div class="region-pills">
+                    <button class="region-pill active" data-filter="all">Barchasi</button>
+                    <button class="region-pill" data-filter="cheap">🔥 Eng arzon</button>
+                    <button class="region-pill" data-filter="vip">👑 Spamga chidamli (VIP)</button>
+                    <button class="region-pill" data-filter="cis">🌍 MDH & Osiyo</button>
+                </div>
+            </div>
+
+            <!-- 3D Tilt Country Cards Grid -->
+            <div class="catalog-grid" id="catalog-grid">
+                <!-- Populated dynamically via script.js -->
+            </div>
+
+            <div class="catalog-more-banner">
+                <div class="more-info">
+                    <i data-lucide="sparkles" class="icon-cyan"></i>
+                    <div>
+                        <h4>Ro'yxatda o'zingizga kerakli davlatni topmadingizmi?</h4>
+                        <p>Botimizda yana <strong>110 dan ortiq davlat</strong> (Yevropa, Arab davlatlari, Osiyo, Janubiy Amerika) mavjud!</p>
+                    </div>
+                </div>
+                <a href="https://t.me/arzonnomeruzbbot" target="_blank" rel="noopener noreferrer" class="btn-cyber">
+                    <span>Barcha davlatlarni botda ko'rish</span>
+                    <i data-lucide="external-link"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE BOT SIMULATOR SECTION (NO-ODATIY KREATIV BLOK) -->
+    <section id="simulator" class="section simulator-section">
+        <div class="container">
+            <div class="simulator-wrapper">
+                <div class="simulator-info">
+                    <div class="section-tag"><i data-lucide="cpu"></i> INTERAKTIV SINOV</div>
+                    <h2 class="section-title">BOT QANDAY ISHLASHINI <br><span class="text-cyan">HOZIROQ SINAB KO'RING!</span></h2>
+                    <p class="section-desc">
+                        Hech qanday murakkablik yo'q! O'ng tomondagi virtual Telegram ekranida tugmalarni bosib, <strong>@arzonnomeruzbbot</strong> orqali raqam va SMS kod olish qanchalik tez ekanligini o'z ko'zingiz bilan ko'ring.
+                    </p>
+
+                    <div class="sim-steps">
+                        <div class="sim-step active" id="sim-ind-1">
+                            <span class="step-num">01</span>
+                            <div>
+                                <h4>Davlat va Xizmatni tanlang</h4>
+                                <p>Simulyator ekranidagi davlatlardan birini bosing.</p>
+                            </div>
+                        </div>
+                        <div class="sim-step" id="sim-ind-2">
+                            <span class="step-num">02</span>
+                            <div>
+                                <h4>Raqamni nusxalab oling</h4>
+                                <p>Bot sizga 1 soniyada yangi raqam taqdim etadi.</p>
+                            </div>
+                        </div>
+                        <div class="sim-step" id="sim-ind-3">
+                            <span class="step-num">03</span>
+                            <div>
+                                <h4>Avtomatik SMS kodni qabul qiling</h4>
+                                <p>5 soniya ichida tasdiqlash kodi chatga kelib tushadi!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sim-guarantee">
+                        <i data-lucide="shield-check" class="icon-cyan"></i>
+                        <span><strong>100% Xavfsiz:</strong> Barcha raqamlar bir martalik va faqat sizga beriladi. Boshqa odamga qayta sotilmaydi!</span>
+                    </div>
+                </div>
+
+                <!-- 3D Phone Mockup with Interactive Bot Chat -->
+                <div class="simulator-phone-stage">
+                    <div class="phone-3d-frame tilt-card" data-tilt>
+                        <div class="phone-notch">
+                            <span class="speaker"></span>
+                            <span class="camera"></span>
+                        </div>
+
+                        <!-- Telegram Header -->
+                        <div class="tg-header">
+                            <img src="assets/logo.png" alt="Bot Avatar" class="tg-avatar">
+                            <div class="tg-user-info">
+                                <div class="tg-name">Arzon Nomer Uzb <span class="verified-icon">✔</span></div>
+                                <div class="tg-status">bot • 24/7 online</div>
+                            </div>
+                            <a href="https://t.me/arzonnomeruzbbot" target="_blank" rel="noopener noreferrer" class="tg-open-real" title="Haqiqiy botni ochish">
+                                <i data-lucide="external-link"></i>
+                            </a>
+                        </div>
+
+                        <!-- Telegram Chat Screen -->
+                        <div class="tg-chat-body" id="tg-chat-body">
+                            <div class="tg-msg bot-msg">
+                                <div class="msg-text">
+                                    👋 Assalomu alaykum! <b>Arzon Nomer Uzb</b> botiga xush kelibsiz!<br><br>
+                                    💰 Balansingiz: <b>25,000 so'm</b> (Demo)<br>
+                                    👇 Telegram uchun qaysi davlat raqamini olmoqchisiz? Tanlang:
+                                </div>
+                                <span class="msg-time">21:14</span>
+                            </div>
+                        </div>
+
+                        <!-- Telegram Inline Buttons Area -->
+                        <div class="tg-keyboard" id="tg-keyboard">
+                            <button class="tg-inline-btn" onclick="simulateBuy('🇺🇸 AQSh (+1)', '+1 (415) 890-3421', '4,500 so\'m')">
+                                🇺🇸 AQSh (+1) — 4,500 so'm
+                            </button>
+                            <button class="tg-inline-btn" onclick="simulateBuy('🇮🇩 Indoneziya (+62)', '+62 812-9940-1823', '2,900 so\'m')">
+                                🇮🇩 Indoneziya (+62) — 2,900 so'm
+                            </button>
+                            <button class="tg-inline-btn" onclick="simulateBuy('🇰🇿 Qozog\'iston (+7)', '+7 (707) 541-9920', '6,900 so\'m')">
+                                🇰🇿 Qozog'iston (+7) — 6,900 so'm
+                            </button>
+                            <button class="tg-inline-btn" onclick="simulateBuy('🇺🇿 O\'zbekiston (+998)', '+998 (93) 581-40-22', '11,500 so\'m')">
+                                🇺🇿 O'zbekiston (+998) — 11,500 so'm
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CREATIVE 3D BENTO GRID FEATURES -->
+    <section id="features" class="section features-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag"><i data-lucide="award"></i> NIMA UCHUN AYNAN BIZ?</div>
+                <h2 class="section-title">NOODATIY IMKONIYATLAR VA <span class="text-cyan">KIBER-AFZALLIKLAR</span></h2>
+                <p class="section-desc">Biz oddiy raqam sotuvchi emasmiz — biz to'liq avtomatlashtirilgan yuqori tezlikdagi SMS-aktivatsiya ekotizimimiz.</p>
+            </div>
+
+            <div class="bento-grid">
+                <!-- Feature 1: Big Card -->
+                <div class="bento-card bento-span-2 tilt-card" data-tilt>
+                    <div class="bento-glow"></div>
+                    <div class="bento-icon-wrap">
+                        <i data-lucide="zap"></i>
+                    </div>
+                    <h3>100% Avtomatlashtirilgan Tezkor Tizim</h3>
+                    <p>Adminga yozib kutib o'tirmaysiz! Kechasi soat 03:00 bo'ladimi yoki ertalabmi — botimiz 24/7 rejimida to'lovni avtomatik qabul qiladi va 3 soniya ichida raqam hamda SMS kodni beradi.</p>
+                    <div class="bento-chips">
+                        <span>⚡ 0 soniya kutish</span>
+                        <span>🤖 To'liq Avto-Bot</span>
+                        <span>🔥 API Integratsiya</span>
+                    </div>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="bento-card tilt-card" data-tilt>
+                    <div class="bento-glow"></div>
+                    <div class="bento-icon-wrap">
+                        <i data-lucide="refresh-ccw"></i>
+                    </div>
+                    <h3>Kod kelmasa — Pul 100% Qaytadi</h3>
+                    <p>Agar tanlangan raqamga SMS kod kelmasa yoki raqamni bekor qilsangiz, mablag'ingiz bir tiyin ham ushlanmasdan darhol balansingizga qaytadi.</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="bento-card tilt-card" data-tilt>
+                    <div class="bento-glow"></div>
+                    <div class="bento-icon-wrap">
+                        <i data-lucide="credit-card"></i>
+                    </div>
+                    <h3>Oson To'lov Tizimlari</h3>
+                    <p>Humo, Uzcard, Click, Payme, Uzum Bank va hatto Kripto / Rubl orqali ham hisobingizni sanoqli soniyalarda komissiyasiz to'ldirishingiz mumkin.</p>
+                </div>
+
+                <!-- Feature 4: Big Card -->
+                <div class="bento-card bento-span-2 tilt-card" data-tilt>
+                    <div class="bento-glow"></div>
+                    <div class="bento-icon-wrap">
+                        <i data-lucide="shield-alert"></i>
+                    </div>
+                    <h3>Spamdan Toza & Yuqori Sifatli Raqamlar</h3>
+                    <p>Bizning serverlarimiz to'g'ridan-to'g'ri xalqaro mobil operatorlar shlyuziga ulangan. Shu sababli olingan akkauntlar uzoq muddat ishlaydi va bloklanib ketmaydi.</p>
+                    <div class="bento-chips">
+                        <span>🛡️ Toza IP Shlyuz</span>
+                        <span>👑 VIP Operatorlar</span>
+                        <span>🔒 Maxfiylik 100%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS & QR CODE SECTION -->
+    <section id="how-it-works" class="section steps-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag"><i data-lucide="compass"></i> 3 TA ODDIY QADAM</div>
+                <h2 class="section-title">RAQAM OLISH <span class="text-cyan">QANDAY ISHLAYDI?</span></h2>
+            </div>
+
+            <div class="steps-timeline">
+                <div class="step-card tilt-card" data-tilt>
+                    <div class="step-badge">QADAM 01</div>
+                    <div class="step-icon"><i data-lucide="send"></i></div>
+                    <h3>Botga start bosing</h3>
+                    <p>Telegram orqali <strong>@arzonnomeruzbbot</strong> manziliga kiring va "Start" tugmasini bosing.</p>
+                </div>
+
+                <div class="step-connector"><i data-lucide="chevrons-right"></i></div>
+
+                <div class="step-card tilt-card" data-tilt>
+                    <div class="step-badge">QADAM 02</div>
+                    <div class="step-icon"><i data-lucide="wallet"></i></div>
+                    <h3>Hisobni to'ldiring va tanlang</h3>
+                    <p>Click/Payme/Karta orqali balansni to'ldiring va 120+ davlatdan o'zingizga ma'qulini tanlang.</p>
+                </div>
+
+                <div class="step-connector"><i data-lucide="chevrons-right"></i></div>
+
+                <div class="step-card tilt-card" data-tilt>
+                    <div class="step-badge">QADAM 03</div>
+                    <div class="step-icon"><i data-lucide="check-circle-2"></i></div>
+                    <h3>Raqam va SMS kodni oling!</h3>
+                    <p>Berilgan raqamni Telegram/WhatsApp'ga kiriting va bot yuborgan SMS kod bilan akkauntni oching!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section id="faq" class="section faq-section">
+        <div class="container faq-container">
+            <div class="section-header">
+                <div class="section-tag"><i data-lucide="help-circle"></i> KO'P BERILADIGAN SAVOLLAR</div>
+                <h2 class="section-title">SAVOLLARINGIZGA <span class="text-cyan">ANIQ JAVOBLAR</span></h2>
+            </div>
+
+            <div class="faq-list">
+                <div class="faq-item active">
+                    <button class="faq-question">
+                        <span>Raqamga SMS kod kelmasa pulim kuyadimi?</span>
+                        <i data-lucide="chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Aslo yo'q! Agar tanlagan raqamingizga SMS kod kelmasa va siz "Bekor qilish" tugmasini bossangiz, pulingiz 100% o'sha zahoti botdagi balansingizga qaytadi. Siz faqat muvaffaqiyatli kelgan SMS kod uchungina to'laysiz.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Olingan raqamni boshqa odamga ham sotasizlarmi?</span>
+                        <i data-lucide="chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yo'q! Har bir raqam tizim tomonidan faqat bir marta sotiladi va aktivatsiyadan so'ng bazadan butunlay o'chiriladi. Xavfsizlikni yanada oshirish uchun akkaunt ochgach, "Ikki bosqichli tekshiruv" (2FA parol) o'rnatib olishni tavsiya qilamiz.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Qaysi davlat raqamlari Telegram uchun eng yaxshi va uzoq ishlaydi?</span>
+                        <i data-lucide="chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Eng arzon variant sifatida Indoneziya (+62), Vetnam (+84) va AQSh (+1) raqamlari juda mashhur. Agar spamga juda chidamli va uzoq yillar ishlaydigan VIP akkaunt kerak bo'lsa, O'zbekiston (+998), Qozog'iston (+7) yoki Yevropa davlatlarini tavsiya qilamiz.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Botda hisobni qanday to'ldirish mumkin va minimal summa qancha?</span>
+                        <i data-lucide="chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Bot ichida Humo, Uzcard, Click, Payme hamda Kripto orqali avtomatik to'ldirish mavjud. Minimal hisob to'ldirish summasi atigi 3,000 so'mni tashkil etadi — ya'ni bitta raqam olish uchun ham bemalol to'lov qila olasiz!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ULTIMATE CYBER CTA BANNER -->
+    <section class="section cta-section">
+        <div class="container">
+            <div class="cta-portal tilt-card" data-tilt>
+                <div class="portal-glow"></div>
+                <div class="cta-content">
+                    <div class="cta-mascot-wrap">
+                        <img src="assets/logo.png" alt="Arzon Nomer Uzb" class="cta-logo">
+                    </div>
+                    <div class="cta-text">
+                        <h2>HOZIROQ BIRINCHI RAQAMINGIZNI OLING!</h2>
+                        <p>45,000+ foydalanuvchilar qatoriga qo'shiling. Eng arzon narxlar, 24/7 avtomatik bot va 100% kafolat sizni kutmoqda.</p>
+                        <div class="cta-buttons">
+                            <a href="https://t.me/arzonnomeruzbbot" target="_blank" rel="noopener noreferrer" class="btn-cyber btn-lg pulse-glow">
+                                <i data-lucide="send"></i>
+                                <span>TELEGRAM BOTNI OCHISH</span>
+                            </a>
+                            <button class="btn-glass btn-lg" onclick="copyBotUsername()">
+                                <i data-lucide="copy"></i>
+                                <span id="copy-btn-text">@arzonnomeruzbbot nusxalash</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <a href="#" class="brand-logo">
+                    <div class="logo-ring">
+                        <img src="assets/logo.png" alt="Arzon Nomer Uzb">
+                    </div>
+                    <div class="brand-text">
+                        <span class="brand-title">ARZON NOMER <span class="text-cyan">UZB</span></span>
+                        <span class="brand-sub">@arzonnomeruzbbot</span>
+                    </div>
+                </a>
+                <p>O'zbekistondagi eng ishonchli va tezkor virtual raqamlar (SMS-aktivatsiya) platformasi. Barcha xizmatlar avtomatlashtirilgan.</p>
+            </div>
+
+            <div class="footer-links">
+                <h4>Bo'limlar</h4>
+                <a href="#catalog">Raqamlar va Narxlar</a>
+                <a href="#simulator">Jonli Bot Simulyatori</a>
+                <a href="#features">Afzalliklarimiz</a>
+                <a href="#faq">Ko'p beriladigan savollar</a>
+            </div>
+
+            <div class="footer-links">
+                <h4>Mashhur Xizmatlar</h4>
+                <a href="https://t.me/arzonnomeruzbbot" target="_blank">Telegram Virtual Raqamlar</a>
+                <a href="https://t.me/arzonnomeruzbbot" target="_blank">WhatsApp Aktivatsiya</a>
+                <a href="https://t.me/arzonnomeruzbbot" target="_blank">Instagram & TikTok SMS</a>
+                <a href="https://t.me/arzonnomeruzbbot" target="_blank">Google / ChatGPT Raqamlar</a>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>© 2026 <strong>Arzon Nomer Uzb</strong> (@arzonnomeruzbbot). Barcha huquqlar himoyalangan.</p>
+            <a href="https://t.me/arzonnomeruzbbot" target="_blank" class="footer-tg-link">
+                <i data-lucide="send"></i> Rasmiy Telegram Bot
+            </a>
+        </div>
+    </footer>
+
+    <!-- Floating Bottom-Right Quick Action Button -->
+    <a href="https://t.me/arzonnomeruzbbot" target="_blank" rel="noopener noreferrer" class="floating-tg-btn" aria-label="Telegram Botga o'tish">
+        <span class="float-ping"></span>
+        <i data-lucide="send"></i>
+        <span class="float-label">Raqam olish</span>
+    </a>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+</html>
